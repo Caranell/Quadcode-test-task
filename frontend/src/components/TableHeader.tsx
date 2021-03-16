@@ -7,6 +7,9 @@ const Header = styled(Typography)`
   margin-bottom: 20px;
 `;
 
-export const TableHeader = ({ text }: { text: string }) => (
+type TableHeaderProps = {
+  text: string;
+}
+export const TableHeader: React.FC<TableHeaderProps> = ({ text }) => (
   <Header variant="h4">{text}</Header>
 );

@@ -7,14 +7,20 @@ import {
   TableRow,
   TableContainer,
   Paper,
+  IconButton,
+  Tooltip,
 } from '@material-ui/core';
-import { TableHeader } from 'components/TableHeader';
+import { Edit as EditIcon, ShoppingBasket as ShoppingBasketIcon } from '@material-ui/icons';
 
-import { fetchBaskets } from 'services/api';
 import { Basket } from 'interfaces/Basket';
+import { fetchBaskets, putBallsInBasket } from 'services/api';
+
+import { TableHeader } from 'components/TableHeader';
+import { Modal } from './Modal';
 
 export const Baskets = () => {
   const [baskets, setBaskets] = useState<Basket[]>([]);
+  const [editingRecord, setEditingRecord] = useState<Basket | null>(null);
 
   const fetchData = async () => {
     const { data } = await fetchBaskets();
@@ -25,8 +31,17 @@ export const Baskets = () => {
     fetchData();
   }, []);
 
+  const onEdit = (record: Basket) => setEditingRecord(record);
+  const onClose = () => setEditingRecord(null);
+  const afterSubmit = () => fetchData();
+
   return (
     <>
+      <Modal
+        record={editingRecord}
+        onClose={onClose}
+        afterSubmit={afterSubmit}
+      />
       <TableHeader text="Baskets" />
       <TableContainer component={Paper}>
         <Table>
@@ -38,6 +53,7 @@ export const Baskets = () => {
               <TableCell>pattern</TableCell>
               <TableCell>has holes</TableCell>
               <TableCell>number of balls</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -51,6 +67,19 @@ export const Baskets = () => {
                 <TableCell>{pattern}</TableCell>
                 <TableCell>{hasHoles ? 'yes' : 'no'}</TableCell>
                 <TableCell>{balls?.length}</TableCell>
+                <TableCell>
+                  <IconButton onClick={() => onEdit({
+                    id, color, size, pattern, hasHoles,
+                  })}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <Tooltip title="Разместить шары в корзину">
+                    <IconButton onClick={() => putBallsInBasket(id)}>
+                      <ShoppingBasketIcon />
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

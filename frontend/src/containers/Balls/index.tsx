@@ -7,10 +7,15 @@ import {
   TableRow,
   TableContainer,
   Paper,
+  Tooltip,
+  IconButton,
 } from '@material-ui/core';
-import { fetchBalls } from 'services/api';
-import { TableHeader } from 'components/TableHeader';
+import { ShoppingBasket as ShoppingBasketIcon } from '@material-ui/icons';
+
 import { Ball } from 'interfaces/Ball';
+import { fetchBalls, putBallInBasket } from 'services/api';
+
+import { TableHeader } from 'components/TableHeader';
 
 export const Balls = () => {
   const [balls, setBalls] = useState<Ball[]>([]);
@@ -37,6 +42,7 @@ export const Balls = () => {
               <TableCell>pattern</TableCell>
               <TableCell>has holes</TableCell>
               <TableCell>Basket id</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -50,6 +56,13 @@ export const Balls = () => {
                 <TableCell>{pattern}</TableCell>
                 <TableCell>{hasHoles ? 'yes' : 'no'}</TableCell>
                 <TableCell>{basket?.id}</TableCell>
+                <TableCell>
+                  <Tooltip title="Найти корзину и положить">
+                    <IconButton onClick={() => putBallInBasket(id)}>
+                      <ShoppingBasketIcon />
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
