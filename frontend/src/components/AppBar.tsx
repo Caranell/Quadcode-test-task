@@ -4,6 +4,7 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 import { MenuItem } from 'interfaces/MenuItem';
 
 const CustomLink = styled(Link)`
@@ -29,7 +30,7 @@ type AppBarProps = {
 
 const AppBar: React.FC<AppBarProps> = ({ menuItems }) => (
   <>
-    <MUIAppBar color="transparent">
+    <MUIAppBar color="default">
       <SingleLineList>
         {menuItems.map(({ link, name }) => (
           <CustomListItem key={name}>
