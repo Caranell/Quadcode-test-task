@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { PaginationQueryDto } from '@/common/dto/PaginationQueryDto';
 import { BasketsService } from './baskets.service';
 import { Basket } from './entities/basket.entity';
 import { UpdateBasketDto } from './dto/update-basket.dto';
@@ -21,8 +20,8 @@ export class BasketsController {
   constructor(private readonly basketsService: BasketsService) {}
 
   @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto): Promise<Basket[]> {
-    return this.basketsService.findAll(paginationQuery);
+  findAll(): Promise<Basket[]> {
+    return this.basketsService.findAll();
   }
 
   @Get(':id')

@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { PaginationQueryDto } from '@/common/dto/PaginationQueryDto';
 import { Ball } from './entities/ball.entity';
 import { Basket } from '@/baskets/entities/basket.entity';
 
@@ -19,13 +18,10 @@ export class BallsService {
     private readonly basketRepository: Repository<Basket>,
   ) {}
 
-  findAll(paginationQuery: PaginationQueryDto): Promise<Ball[]> {
-    const { limit, offset } = paginationQuery;
+  findAll(): Promise<Ball[]> {
 
     return this.ballRepository.find({
       relations: ['basket'],
-      skip: offset,
-      take: limit,
       order: {
         id: 'ASC',
       },
