@@ -50,7 +50,6 @@ export class BallsService {
     if (!ball) {
       throw new NotFoundException(`Ball with id "${id}" not found`);
     }
-    console.log(`ball`, ball);
 
     const { id: _, ...ballData } = ball;
 

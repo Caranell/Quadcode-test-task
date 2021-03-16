@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Repository, Not } from 'typeorm';
 import {
   ConflictException,
   Injectable,
@@ -54,8 +54,11 @@ export class BasketsService {
     }
     const { id: _, ...basketData } = basket;
 
-    const duplicateBasket = await this.basketRepository.find({
-      where: basketData,
+    const duplicateBasket = await this.basketRepository.findOne({
+      where: {
+        ...basketData,
+        id: Not(id)
+      },
     });
 
     if (duplicateBasket) {

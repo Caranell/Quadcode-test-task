@@ -3,9 +3,9 @@ import {
   Controller,
   Get,
   Param,
-  Patch,
+  Put,
   Post,
-  Query,
+  Query
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -30,7 +30,7 @@ export class BasketsController {
     return this.basketsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   modify(
     @Param('id') id: string,
     @Body() updateBasketDto: UpdateBasketDto,
