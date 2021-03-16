@@ -1,9 +1,11 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { PaginationQueryDto } from '@/common/dto/PaginationQueryDto';
 import { BasketsService } from './baskets.service';
 import { Basket } from './entities/basket.entity';
 
+@ApiTags('balls')
 @Controller('baskets')
 export class BasketsController {
   constructor(private readonly basketsService: BasketsService) {}

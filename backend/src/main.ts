@@ -1,5 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -14,6 +16,11 @@ async function bootstrap() {
       },
     }),
   );
+
+  const options = new DocumentBuilder().setDescription('Test project').build();
+  const document = SwaggerModule.createDocument(app, options);
+
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);
 }
