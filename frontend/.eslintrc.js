@@ -27,5 +27,7 @@ module.exports = {
     'react/prop-types': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
 };
