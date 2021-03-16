@@ -18,6 +18,12 @@ async function bootstrap() {
     }),
   );
 
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Accept',
+  });
+
   const options = new DocumentBuilder().setDescription('Test project').build();
   const document = SwaggerModule.createDocument(app, options);
 
