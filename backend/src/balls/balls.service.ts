@@ -26,6 +26,9 @@ export class BallsService {
       relations: ['basket'],
       skip: offset,
       take: limit,
+      order: {
+        id: 'ASC',
+      },
     });
   }
 
