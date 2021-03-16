@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container } from '@material-ui/core';
+import styled from 'styled-components';
+import { MenuItem } from 'interfaces/MenuItem';
+import AppBar from 'components/AppBar';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const ContainerWithOffset = styled(Container)`
+  margin-top: 100px;
+`;
+
+const menuItems: MenuItem[] = [{
+  link: '/baskets',
+  name: 'Baskets',
+}, {
+  link: '/balls',
+  name: 'Balls',
+}];
+
+type AppProps = {
+  children: React.ReactNode;
 }
+
+const App: React.FC<AppProps> = ({ children }) => (
+  <>
+    <AppBar menuItems={menuItems} />
+    <ContainerWithOffset>
+      <>
+        {children}
+      </>
+    </ContainerWithOffset>
+  </>
+);
 
 export default App;
