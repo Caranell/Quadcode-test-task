@@ -39,6 +39,21 @@ export class BallsService {
     return ball;
   }
 
+  async findMatchingBasket(ballId, options): Promise<Basket> {
+    const matchingBasket = await this.basketRepository.findOne({
+      where: options,
+      relations: ['balls'],
+    });
+
+    if (!matchingBasket) {
+      throw new PreconditionFailedException(
+        `Couldn't find matching basket for ball "${ballId}"`,
+      );
+    }
+
+    return matchingBasket;
+  }
+
   async putInBasket(id: string): Promise<Basket> {
     const ball = await this.ballRepository.findOne(id);
 
@@ -48,16 +63,7 @@ export class BallsService {
 
     const { id: _, ...ballData } = ball;
 
-    const matchingBasket = await this.basketRepository.findOne({
-      where: ballData,
-      relations: ['balls'],
-    });
-
-    if (!matchingBasket) {
-      throw new PreconditionFailedException(
-        `Couldn't find matching basket for ball "${id}"`,
-      );
-    }
+    const matchingBasket = await this.findMatchingBasket(id, ballData);
 
     await this.ballRepository.save({
       ...ball,
