@@ -4,7 +4,7 @@
 
 ```sh
   git clone git@github.com:Caranell/Quadcode-test-task.git
-  cp ./backend/.env-example ./backend/.env
+  ./copyConfigs.sh
 ```
 
 Для запуска приложения необходим `Docker`
