@@ -1,9 +1,10 @@
-import { BallPatterns } from '../common/constants/BallPatternts';
-import { BallSize } from '../common/constants/BallSizes';
+import { Repository } from 'typeorm';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+
+import { BallPatterns } from '@/common/constants/BallPatternts';
+import { BallSize } from '@/common/constants/BallSizes';
 import { BasketsService } from './baskets.service';
 import { Basket } from './entities/basket.entity';
 import { Ball } from '@/balls/entities/ball.entity';
@@ -49,7 +50,7 @@ const [basketFixture] = basketsFixture;
 describe('Basket services', () => {
   let service: BasketsService;
   let repository: Repository<Basket>;
-  let ballRepo: Repository<Ball>;
+  let ballRepository: Repository<Ball>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -75,7 +76,7 @@ describe('Basket services', () => {
 
     service = module.get<BasketsService>(BasketsService);
     repository = module.get<Repository<Basket>>(getRepositoryToken(Basket));
-    ballRepo = module.get<Repository<Ball>>(getRepositoryToken(Ball));
+    ballRepository = module.get<Repository<Ball>>(getRepositoryToken(Ball));
   });
 
   it('should be defined', () => {
