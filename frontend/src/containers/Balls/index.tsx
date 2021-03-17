@@ -29,6 +29,11 @@ export const Balls = () => {
     fetchData();
   }, []);
 
+  const onBallIconClick = async (id: number) => {
+    await putBallInBasket(id);
+    fetchData();
+  };
+
   return (
     <>
       <TableHeader text="Balls" />
@@ -58,7 +63,7 @@ export const Balls = () => {
                 <TableCell>{basket?.id}</TableCell>
                 <TableCell>
                   <Tooltip title="Найти корзину и положить">
-                    <IconButton onClick={() => putBallInBasket(id)}>
+                    <IconButton onClick={() => onBallIconClick(id)}>
                       <ShoppingBasketIcon />
                     </IconButton>
                   </Tooltip>

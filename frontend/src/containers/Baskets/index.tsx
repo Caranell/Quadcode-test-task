@@ -33,14 +33,18 @@ export const Baskets = () => {
 
   const onEdit = (record: Basket) => setEditingRecord(record);
   const onClose = () => setEditingRecord(null);
-  const afterSubmit = () => fetchData();
+
+  const onBasketIconClick = async (id: number) => {
+    await putBallsInBasket(id);
+    fetchData();
+  };
 
   return (
     <>
       <Modal
         record={editingRecord}
         onClose={onClose}
-        afterSubmit={afterSubmit}
+        afterSubmit={fetchData}
       />
       <TableHeader text="Baskets" />
       <TableContainer component={Paper}>
@@ -75,7 +79,7 @@ export const Baskets = () => {
                     <EditIcon />
                   </IconButton>
                   <Tooltip title="Разместить шары в корзину">
-                    <IconButton onClick={() => putBallsInBasket(id)}>
+                    <IconButton onClick={() => onBasketIconClick(id)}>
                       <ShoppingBasketIcon />
                     </IconButton>
                   </Tooltip>
