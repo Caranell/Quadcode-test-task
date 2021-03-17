@@ -3,7 +3,7 @@ import { Ball } from 'interfaces/Ball';
 import { Basket } from 'interfaces/Basket';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: 'http://localhost:3002',
 });
 
 api.interceptors.response.use(
