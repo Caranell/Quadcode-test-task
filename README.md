@@ -19,8 +19,10 @@
 
 ### Production mode
 ```sh
-  docker-compose -f docker-compose.yml -f production.yml up -d
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 ```
+
+Приложение будет доступно на [localhost](http://localhost:8080)
 
 Сделал функционал, показавшийся мне логичным:
   - удаление шаров, если настроки корзины меняются

@@ -1,0 +1,24 @@
+FROM node:15.3.0-alpine3.10 as build
+
+RUN chmod 777 /usr/local/bin/docker-entrypoint.sh
+RUN mkdir -p /home/frontend/app
+WORKDIR /home/frontend/app
+
+COPY package.json yarn.lock ./
+
+RUN yarn install --silent
+RUN yarn cache clean --all
+
+COPY . .
+
+RUN yarn build
+
+
+FROM nginx:1.18-alpine
+RUN apk update && apk add bash
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+COPY --from=build /home/frontend/app/build /usr/share/nginx/html
+WORKDIR /home
+COPY --from=build /home/frontend/app/entrypoint.prod.sh /home/entrypoint.prod.sh
+EXPOSE 80
+# CMD ["./entrypoint.prod.sh"]

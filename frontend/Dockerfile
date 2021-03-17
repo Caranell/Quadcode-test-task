@@ -8,6 +8,6 @@ COPY package.json yarn.lock ./
 RUN yarn install --silent
 RUN yarn cache clean --all
 
-COPY . ./
+COPY . .
 
 EXPOSE 3000

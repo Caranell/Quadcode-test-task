@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  backend:
+    entrypoint: ["/bin/sh", "./entrypoint.prod.sh"]
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    ports:
+      - "8080:80"
+    entrypoint: ["/bin/bash", "./entrypoint.prod.sh"]
