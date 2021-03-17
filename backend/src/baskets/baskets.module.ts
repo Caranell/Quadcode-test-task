@@ -10,5 +10,6 @@ import { Ball } from '@/balls/entities/ball.entity';
   imports: [TypeOrmModule.forFeature([Basket, Ball])],
   controllers: [BasketsController],
   providers: [BasketsService],
+  exports: [BasketsService],
 })
 export class BasketsModule {}
