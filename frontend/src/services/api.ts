@@ -11,7 +11,7 @@ api.interceptors.response.use(
   (error) => {
     const { response } = error;
 
-    alert(response?.data?.message);
+    alert(response?.data?.message || 'Internal server error');
 
     return Promise.reject(error);
   },

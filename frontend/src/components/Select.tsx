@@ -5,9 +5,9 @@ import {
 } from '@material-ui/core';
 
 type SelectProps = {
-  options: any[];
+  options: string[];
   onChange: () => void;
-  value: any;
+  value: string;
   label: string;
 }
 
