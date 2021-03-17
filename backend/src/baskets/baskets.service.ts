@@ -39,6 +39,22 @@ export class BasketsService {
     return basket;
   }
 
+  async checkDuplicateEntityExists(
+    originalEntityId: string,
+    data: UpdateBasketDto,
+  ): Promise<void> {
+    const duplicateBasket = await this.basketRepository.findOne({
+      where: {
+        ...data,
+        id: Not(originalEntityId),
+      },
+    });
+
+    if (duplicateBasket) {
+      throw new ConflictException(`Basket with these settings already exists`);
+    }
+  }
+
   async modify(id: string, updateBasketDto: UpdateBasketDto): Promise<Basket> {
     const basket = await this.basketRepository.preload({
       id: Number(id),
@@ -48,24 +64,14 @@ export class BasketsService {
     if (!basket) {
       throw new NotFoundException(`Basket with id "${id}" not found`);
     }
-    const { id: _, ...basketData } = basket;
 
-    const duplicateBasket = await this.basketRepository.findOne({
-      where: {
-        ...basketData,
-        id: Not(id)
-      },
-    });
-
-    if (duplicateBasket) {
-      throw new ConflictException(`Basket with these settings already exists`);
-    }
+    await this.checkDuplicateEntityExists(id, updateBasketDto);
 
     // remove all balls from basket on settings change
     return this.basketRepository.save({ ...basket, balls: [] });
   }
 
-  async putMatchingBalls(id: string): Promise<Ball[]> {
+  async putMatchingBalls(id: string): Promise<Basket> {
     const basket = await this.basketRepository.findOne(id);
 
     if (!basket) {
@@ -78,8 +84,6 @@ export class BasketsService {
       where: basketData,
     });
 
-    await this.basketRepository.save({ ...basket, balls });
-
-    return balls;
+    return this.basketRepository.save({ ...basket, balls });
   }
 }

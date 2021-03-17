@@ -19,7 +19,6 @@ export class BallsService {
   ) {}
 
   findAll(): Promise<Ball[]> {
-
     return this.ballRepository.find({
       relations: ['basket'],
       order: {

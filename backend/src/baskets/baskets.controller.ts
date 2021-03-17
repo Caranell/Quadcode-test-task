@@ -1,19 +1,9 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Put,
-  Post,
-  Query
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { BasketsService } from './baskets.service';
 import { Basket } from './entities/basket.entity';
 import { UpdateBasketDto } from './dto/update-basket.dto';
-import { Ball } from '@/balls/entities/ball.entity';
-
 @ApiTags('balls')
 @Controller('baskets')
 export class BasketsController {
@@ -39,7 +29,7 @@ export class BasketsController {
 
   // naming advices appreciated :P
   @Post(':id/put-matching-balls')
-  putMatchingBalls(@Param('id') id: string): Promise<Ball[]> {
+  putMatchingBalls(@Param('id') id: string): Promise<Basket> {
     return this.basketsService.putMatchingBalls(id);
   }
 }
