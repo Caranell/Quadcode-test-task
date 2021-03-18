@@ -4,7 +4,8 @@ import { ApiTags } from '@nestjs/swagger';
 import { BasketsService } from './baskets.service';
 import { Basket } from './entities/basket.entity';
 import { UpdateBasketDto } from './dto/update-basket.dto';
-@ApiTags('balls')
+
+@ApiTags('baskets')
 @Controller('baskets')
 export class BasketsController {
   constructor(private readonly basketsService: BasketsService) {}
